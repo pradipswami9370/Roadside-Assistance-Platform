@@ -16,6 +16,13 @@ const technicianRoutes = require("./routes/technicianRoutes");
 // Use the routes
 app.use("/api/technicians", technicianRoutes);
 
+// Import service request routes
+const serviceRequestRoutes = require('./routes/serviceRequestRoutes');
+
+// Use the service request routes
+app.use('/api/requests', serviceRequestRoutes);
+
+
 const PORT = process.env.PORT || 5000;
 
 mongoose
