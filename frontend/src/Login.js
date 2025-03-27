@@ -11,7 +11,10 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/users/login', { email, password });
-      setToken(res.data.token);
+      const receivedToken = res.data.token;
+      setToken(receivedToken);
+      // Store token in localStorage
+      localStorage.setItem('token', receivedToken);
       setError('');
     } catch (err) {
       setError('Login failed. Please check your credentials.');
@@ -46,7 +49,7 @@ const Login = () => {
       {token && (
         <div>
           <h3>Login Successful!</h3>
-          <p>Token:</p>
+          <p>Token stored in localStorage.</p>
           <pre>{token}</pre>
         </div>
       )}
