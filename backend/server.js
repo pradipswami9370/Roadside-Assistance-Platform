@@ -1,32 +1,27 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error(err));
+// Load environment variables
+dotenv.config();
 
 const app = express();
+app.use(express.json()); // Middleware to parse JSON body
 app.use(cors());
-app.use(express.json());
 
-// 1. IMPORT userRoutes
-const userRoutes = require('./routes/userRoutes');
+// Import technician routes
+const technicianRoutes = require("./routes/technicianRoutes");
 
-// 2. USE userRoutes for any path starting with /api/users
-app.use('/api/users', userRoutes);
-
-// Sample route
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
+// Use the routes
+app.use("/api/technicians", technicianRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB connected");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => console.log(err));
