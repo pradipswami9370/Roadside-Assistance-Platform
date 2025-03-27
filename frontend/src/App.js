@@ -4,12 +4,14 @@ import Login from './Login';
 import Home from './Home';
 import Dashboard from './Dashboard';
 import ProtectedRoute from './ProtectedRoute';
+import TechnicianRegister from './TechnicianRegister';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register/technician" element={<TechnicianRegister />} />
         <Route path="/" element={<Home />} />
         <Route 
           path="/dashboard" 
